@@ -71,8 +71,7 @@ void appRun(App *pApp) {
 
   while (1) {
     _readNcursesState(pApp);
-    _renderStatusBar(pApp);
-    _renderCommandBar(pApp);
+    _render(pApp);
     _handleInput(pApp);
   }
 
