@@ -11,9 +11,16 @@ struct SApp {
   int nArgc;
   char **psArgv;
   char *sPcapPath;
+
+  int nWidth;
+  int nHeight;
 };
 
 static void _parseArgs(App *pApp);
+static void _readNcursesState(App *pApp);
+static void _handleInput(App *pApp);
+static void _render(App *pApp);
+static void _renderStatusBar(App *pApp);
 
 App *appNew(int nArgc, char **psArgv) {
   App *pApp = malloc(sizeof(App));
@@ -40,7 +47,13 @@ void appRun(App *pApp) {
   raw();
   noecho();
 
+  keypad(stdscr, true);
+
   _parseArgs(pApp);
+
+  _readNcursesState(pApp);
+  _renderStatusBar(pApp);
+
   getch(); // TODO: Implement main loop instead
 
   endwin();
@@ -64,4 +77,21 @@ static void _parseArgs(App *pApp) {
   }
 
   pApp->sPcapPath = pApp->psArgv[1];
+}
+
+static void _readNcursesState(App *pApp) {
+  getmaxyx(stdscr, pApp->nHeight, pApp->nWidth);
+}
+
+static void _handleInput(App *pApp) {}
+
+static void _render(App *pApp) {}
+
+static void _renderStatusBar(App *pApp) {
+  int y = pApp->nHeight - 2;
+  int x = 0;
+
+  attron(WA_REVERSE);
+  mvprintw(y, x, "%-*s", pApp->nWidth - 1, pApp->sPcapPath);
+  attroff(WA_REVERSE);
 }
