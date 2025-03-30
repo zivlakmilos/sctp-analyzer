@@ -3,6 +3,8 @@
 
 typedef struct SApp App;
 
+typedef int (*stateInputHandler)(App *, int);
+
 App *appNew(int pArgc, char **psArgv);
 void appDelete(App **ppApp);
 
