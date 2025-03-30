@@ -4,7 +4,8 @@ LD = gcc
 LDFLAGS = -lncurses
 HEADERS = $(shell find src -name "*.h")
 
-OBJS = build/main.o
+OBJS = build/main.o \
+			 build/app.o
 
 all: sctp-analyzer
 

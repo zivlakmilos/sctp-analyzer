@@ -1,5 +1,11 @@
-#include <stdio.h>
+#include "app.h"
+
 int main(int argc, char *argv[]) {
-  printf("Hello World!\n");
+  App *pApp = appNew(argc, argv);
+
+  appRun(pApp);
+
+  appDelete(&pApp);
+
   return 0;
 }
