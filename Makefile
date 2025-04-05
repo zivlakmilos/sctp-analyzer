@@ -16,6 +16,11 @@ build/%.o: src/%.c $(HEADERS)
 	@mkdir -p build/
 	gcc -c -o $@ $(CFLAGS) $<
 
+.PHONY: compile_commands
+compile_commands:
+	@make clean
+	@bear -- make
+
 .PHONY: clean
 clean:
 	@rm -Rf build/
