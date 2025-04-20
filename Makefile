@@ -5,7 +5,8 @@ LDFLAGS = -lncurses
 HEADERS = $(shell find src -name "*.h")
 
 OBJS = build/main.o \
-			 build/app.o
+			 build/app.o \
+			 build/lib/pcap.o
 
 all: sctp-analyzer
 
@@ -14,6 +15,10 @@ sctp-analyzer: $(OBJS)
 
 build/%.o: src/%.c $(HEADERS)
 	@mkdir -p build/
+	gcc -c -o $@ $(CFLAGS) $<
+
+build/lib/%.o: lib/%.c $(HEADERS)
+	@mkdir -p build/lib/
 	gcc -c -o $@ $(CFLAGS) $<
 
 .PHONY: compile_commands
